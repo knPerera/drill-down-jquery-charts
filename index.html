@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>  
+  <title>Making Drill-down Charts in jQuery</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  
+  <!-- fusioncharts package files -->
+  <script type="text/javascript" src="js/fusioncharts.js"></script>
+  <script type="text/javascript" src="js/fusioncharts.charts.js"></script>
+  
+  <!-- fusioncharts jquery plugin -->
+  <script type="text/javascript" src="js/fusioncharts-jquery.js"></script>
+  
+  <!-- custom theme file -->
+  <script type="text/javascript" src="js/toptal.js"></script>
+</head>
+<body>
+  <div id="drill-down-chart">Drill down charts will render here!</div>
+  <script type="text/javascript">
+    $("#drill-down-chart").insertFusionCharts({
+      type: 'column2d',
+      width: '100%',
+      id: "mychart",
+      height: '550',
+      dataFormat: 'json',
+      dataSource: {
+        "chart": {
+          "caption": "Quarterly Revenue for 2015",
+          "paletteColors": "#9EA5FC",
+          "xAxisName": "Quarter (Click to drill down)",
+          "yAxisName": "Revenue (In USD)",
+          "numberPrefix": "$",
+          "showValues": "0",
+          "plotSpacePercent": "16",
+          "yAxisMaxValue": "2390000",
+          "plotToolText": "<div style='font-size: 16px; text-align: center;'>$label: $dataValue</div>",
+          "theme": "toptal"
+        },
+
+        "data": [{
+          "label": "Q1",
+          "value": "850000",
+          "link": "newchart-json-q1"
+        }, {
+          "label": "Q2",
+          "value": "2070000",
+          "link": "newchart-json-q2"
+        }, {
+          "label": "Q3",
+          "value": "1330000",
+          "link": "newchart-json-q3"
+        }, {
+          "label": "Q4",
+          "value": "2290000",
+          "link": "newchart-json-q4"
+        }],
+
+        "linkeddata": [{
+          "id": "q1",
+          "linkedchart": {
+            "chart": {
+              "caption": "Monthly Revenue",
+              "subcaption": "First Quarter",
+              "paletteColors": "#EEDA54, #A2A5FC, #41CBE3",
+              "labelFontSize": "16",
+              "valueFontSize": "14",
+              "xAxisName": "Month",
+              "yAxisName": "Revenue (In USD)",
+              "plotToolText": "<div style='font-size: 16px; text-align: center;'>$label: $dataValue</div>",
+              "theme": "toptal"
+            },
+            "data": [{
+              "label": "Jan",
+              "value": "255000"
+            }, {
+              "label": "Feb",
+              "value": "467500"
+            }, {
+              "label": "Mar",
+              "value": "127500"
+            }]
+          }
+        }, {
+          "id": "q2",
+          "linkedchart": {
+            "chart": {
+              "caption": "Monthly Revenue",
+              "subcaption": "Second Quarter",
+              "paletteColors": "#EEDA54, #A2A5FC, #41CBE3",
+              "labelFontSize": "16",
+              "valueFontSize": "14",
+              "xAxisName": "Month",
+              "yAxisName": "Revenue (In USD)",
+              "plotToolText": "<div style='font-size: 16px; text-align: center;'>$label: $dataValue</div>",
+              "theme": "toptal"
+            },
+            "data": [{
+              "label": "Apr",
+              "value": "828000"
+            }, {
+              "label": "May",
+              "value": "931500"
+            }, {
+              "label": "Jun",
+              "value": "310500"
+            }]
+          }
+        }, {
+          "id": "q3",
+          "linkedchart": {
+            "chart": {
+              "caption": "Monthly Revenue",
+              "subcaption": "Third Quarter",
+              "paletteColors": "#EEDA54, #A2A5FC, #41CBE3",
+              "labelFontSize": "16",
+              "valueFontSize": "14",
+              "xAxisName": "Month",
+              "yAxisName": "Revenue (In USD)",
+              "plotToolText": "<div style='font-size: 16px; text-align: center;'>$label: $dataValue</div>",
+              "theme": "toptal"
+            },
+            "data": [{
+              "label": "Jul",
+              "value": "598500"
+            }, {
+              "label": "Aug",
+              "value": "532000"
+            }, {
+              "label": "Sep",
+              "value": "199500"
+            }]
+          }
+        }, {
+          "id": "q4",
+          "linkedchart": {
+            "chart": {
+              "caption": "Monthly Revenue",
+              "subcaption": "Fourth Quarter",
+              "paletteColors": "#EEDA54, #A2A5FC, #41CBE3",
+              "labelFontSize": "16",
+              "valueFontSize": "14",
+              "xAxisName": "Month",
+              "yAxisName": "Revenue (In USD)",
+              "plotToolText": "<div style='font-size: 16px; text-align: center;'>$label: $dataValue</div>",
+              "theme": "toptal"
+            },
+            "data": [{
+              "label": "Oct",
+              "value": "1259500"
+            }, {
+              "label": "Nov",
+              "value": "687000"
+            }, {
+              "label": "Dec",
+              "value": "343500"
+            }]
+          }
+        }]
+      }
+    });
+
+    $('#drill-down-chart').bind('fusionchartsrendered', function(event, args) {
+      FusionCharts.items['mychart'].configureLink({
+        type: "doughnut2d",
+        overlayButton: {
+          message: 'BACK', // Set the button to show diff message
+          bgColor: '#FCFDFD',
+          borderColor: '#cccccc'
+        }
+      });
+    });
+  </script>
+</body>
+</html>
